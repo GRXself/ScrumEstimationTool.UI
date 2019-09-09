@@ -1,18 +1,43 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js App" />
+    <div class="text-center">
+      <h1 class="display-4">Welcome</h1>
+      <p>
+        This is a web tool helps your team do the Scrum estimation. Please
+        create a room or join one by shared id. Have fun!
+      </p>
+    </div>
+
+    <div>
+      <div class="homepage-panel" style="border-right: 5px solid">
+        <h3>Host:</h3>
+        Create a room? <br />Room Id:
+        <input id="roomId-given" type="text" />
+        <br />
+        <input type="button" value="Get this room!" onclick="createRoom()" />
+      </div>
+
+      <div class="homepage-panel">
+        <h3>Participant:</h3>
+        Join a room? <br />Room Id:
+        <input id="roomId-join" type="text" />
+        <br />
+        <input type="button" value="Join!" onclick="joinRoom()" />
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from "@/components/HelloWorld.vue";
-
 export default {
-  name: "home",
-  components: {
-    HelloWorld
-  }
+  name: "home"
 };
 </script>
+
+<style scoped>
+.homepage-panel {
+  float: left;
+  padding: 30px;
+  width: 50%;
+}
+</style>
