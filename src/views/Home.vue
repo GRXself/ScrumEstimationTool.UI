@@ -9,7 +9,7 @@
     </div>
 
     <div>
-      <div class="homepage-panel" style="border-right: 5px solid">
+      <div class="page-panel" style="border-right: 5px solid">
         <h3>Host:</h3>
         Create a room? <br />Room Id:
         <input id="roomId-given" type="text" />
@@ -17,7 +17,7 @@
         <input type="button" value="Get this room!" onclick="createRoom()" />
       </div>
 
-      <div class="homepage-panel">
+      <div class="page-panel">
         <h3>Participant:</h3>
         Join a room? <br />Room Id:
         <input id="roomId-join" type="text" />
@@ -34,10 +34,4 @@ export default {
 };
 </script>
 
-<style scoped>
-.homepage-panel {
-  float: left;
-  padding: 30px;
-  width: 50%;
-}
-</style>
+<style scoped></style>

@@ -3,12 +3,12 @@
     <h2>Participant</h2>
 
     <div>
-      <div class="participant-panel" style="border-right: 5px solid">
+      <div class="page-panel" style="border-right: 5px solid">
         Current room id:
         <p id="roomId-show"></p>
       </div>
 
-      <div class="participant-panel">
+      <div class="page-panel">
         <form>
           Your Name:
           <input id="participant-name" type="text" />
@@ -98,11 +98,5 @@ export default {
 
   text-align: center;
   font-size: 20px;
-}
-
-.participant-panel {
-  float: left;
-  padding: 30px;
-  width: 50%;
 }
 </style>

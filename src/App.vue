@@ -1,9 +1,9 @@
 <template>
   <div id="app">
     <div id="nav">
-      <router-link to="/">Home</router-link>|
-      <router-link to="/host">Host</router-link>|
-      <router-link to="/participant">Participant</router-link>|
+      <router-link to="/">Home</router-link>&nbsp;|
+      <router-link to="/host">Host</router-link>&nbsp;|
+      <router-link to="/participant">Participant</router-link>&nbsp;|
       <router-link to="/about">About</router-link>
     </div>
     <router-view />
@@ -29,5 +29,16 @@
 
 #nav a.router-link-exact-active {
   color: #42b983;
+}
+
+.page-panel {
+  float: left;
+  width: 40%;
+  max-width: 40%;
+  padding-left: 8%;
+  padding-right: 1%;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  text-align: left;
 }
 </style>
