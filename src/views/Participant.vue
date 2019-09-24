@@ -3,60 +3,44 @@
     <h2>Participant</h2>
 
     <div>
-      <div class="page-panel" style="border-right: 5px solid">
+      <div class="page-panel">
         Current room id:
-        <p id="roomId-show"></p>
+        <p>{{ roomId }}</p>
       </div>
 
-      <div class="page-panel">
-        <form>
+      <div class="page-panel" style="border-left: 5px solid">
+        <form @submit.prevent>
+          <p v-if="errors.length">
+            <b>Please correct the following error(s):</b>
+          </p>
+          <ul>
+            <li v-for="error in errors" :key="error">{{ error }}</li>
+          </ul>
           Your Name:
-          <input id="participant-name" type="text" />
+          <input v-model="name" />
           <br />Your Current Estimation:
-          <text id="participant-estimation"></text>
+          <span>{{ estimation }}</span>
           <br />
-          <input type="button" onclick="submitEstimation()" value="Submit" />
+          <button @click="onSubmit()">Submit</button>
         </form>
       </div>
-
-      <div></div>
     </div>
 
-    <div>Click the card below giving a quick estimation:</div>
-    <div width="100%">
-      <div class="poker-card__container">
-        <div class="poker-card__body" onclick="pokerCardOnSelected(this)">
-          1
-        </div>
-      </div>
-      <div class="poker-card__container">
-        <div class="poker-card__body" onclick="pokerCardOnSelected(this)">
-          2
-        </div>
-      </div>
-      <div class="poker-card__container">
-        <div class="poker-card__body" onclick="pokerCardOnSelected(this)">
-          3
-        </div>
-      </div>
-      <div class="poker-card__container">
-        <div class="poker-card__body" onclick="pokerCardOnSelected(this)">
-          5
-        </div>
-      </div>
-      <div class="poker-card__container">
-        <div class="poker-card__body" onclick="pokerCardOnSelected(this)">
-          8
-        </div>
-      </div>
-      <div class="poker-card__container">
-        <div class="poker-card__body" onclick="pokerCardOnSelected(this)">
-          666
-        </div>
-      </div>
-      <div class="poker-card__container">
-        <div class="poker-card__body" onclick="pokerCardOnSelected(this)">
-          0
+    <div>
+      <div>Click the card below giving a quick estimation:</div>
+      <div width="100%">
+        <div
+          class="poker-card__container"
+          v-for="cardValue in cardValues"
+          :key="cardValue"
+        >
+          <div
+            class="poker-card__body"
+            :class="{ 'poker-card--selected': isSeleted(cardValue) }"
+            @click="estimation = cardValue"
+          >
+            {{ cardValue }}
+          </div>
         </div>
       </div>
     </div>
@@ -64,8 +48,60 @@
 </template>
 
 <script>
+import { mapActions } from "vuex";
+import router from "@/router";
+
 export default {
-  name: "Participant"
+  name: "Participant",
+  data() {
+    return {
+      cardValues: [1, 2, 3, 5, 8, 666, 0],
+      errors: []
+    };
+  },
+  methods: {
+    ...mapActions("participant", ["submit"]),
+    onSubmit() {
+      if (!this.roomId) {
+        alert("No room entered!");
+        router.push({ path: "/" });
+        return;
+      }
+      this.errors = [];
+      if (this.name && this.estimation) {
+        this.submit();
+      } else {
+        if (!this.name) this.errors.push("Name required!");
+        if (!this.estimation) this.errors.push("Estimation required!");
+      }
+    },
+    isSeleted(currentCardValue) {
+      return this.estimation === currentCardValue;
+    }
+  },
+  computed: {
+    name: {
+      get() {
+        return this.$store.state.participant.name;
+      },
+      set(value) {
+        this.$store.commit("participant/SET_PARTICIPANT_NAME", value);
+      }
+    },
+    estimation: {
+      get() {
+        return this.$store.state.participant.estimation;
+      },
+      set(value) {
+        this.$store.commit("participant/SET_PARTICIPANT_ESTIMATION", value);
+      }
+    },
+    roomId: {
+      get() {
+        return this.$store.state.room.id;
+      }
+    }
+  }
 };
 </script>
 
@@ -89,14 +125,6 @@ export default {
   box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
 }
 .poker-card--selected {
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   background-color: #c66c62;
-  transition: 0.3s;
-
-  width: 130px;
-  padding: 70px 50px;
-
-  text-align: center;
-  font-size: 20px;
 }
 </style>

@@ -10,12 +10,11 @@ const apiClient = axios.create({
 });
 
 export default {
-  createRoom(roomId) {
-    return apiClient.post("/room", {
-      roomId: parseInt(roomId)
-    });
+  getAll(roomId) {
+    return apiClient.get("/participant/" + roomId);
   },
-  enterRoom(roomId) {
-    return apiClient.get("/room/" + roomId);
+  submit(roomId, participant) {
+    console.log(roomId);
+    return apiClient.post("/participant/" + roomId, participant);
   }
 };

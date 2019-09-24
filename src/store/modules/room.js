@@ -4,7 +4,10 @@ import router from "@/router";
 const namespaced = true;
 
 const state = {
-  id: 0
+  id: null,
+  participants: null,
+  createTime: null,
+  lastUseTime: null
 };
 
 const getters = {
@@ -14,15 +17,22 @@ const getters = {
 };
 
 const mutations = {
+  SET_ROOM(state, room) {
+    Object.assign(state, room);
+  },
   SET_ROOM_ID(state, id) {
     state.id = id;
+  },
+  SET_ROOM_PARTICIPANTS(state, participants) {
+    state.participants = participants;
   }
 };
 
 const actions = {
-  createRoom() {
+  createRoom({ commit }) {
     return RoomService.createRoom(state.id)
-      .then(() => {
+      .then(response => {
+        commit("SET_ROOM", response.data);
         router.push({ path: "/host" });
       })
       .catch(error => {
@@ -31,9 +41,10 @@ const actions = {
         }
       });
   },
-  enterRoom() {
+  enterRoom({ commit }) {
     return RoomService.enterRoom(state.id)
-      .then(() => {
+      .then(response => {
+        commit("SET_ROOM", response.data);
         router.push({ path: "/participant" });
       })
       .catch(error => {

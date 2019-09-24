@@ -34,7 +34,7 @@ import { mapActions } from "vuex";
 export default {
   name: "home",
   methods: {
-    ...mapActions("room", ["createRoom", "enterRoom", "testApi"])
+    ...mapActions("room", ["createRoom", "enterRoom"])
   },
   computed: {
     roomId: {
