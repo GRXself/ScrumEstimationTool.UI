@@ -3,10 +3,7 @@
     <h2>Participant</h2>
 
     <div>
-      <div class="page-panel">
-        Current room id:
-        <p>{{ roomId }}</p>
-      </div>
+      <room-id-display class="page-panel"></room-id-display>
 
       <div class="page-panel" style="border-left: 5px solid">
         <form @submit.prevent>
@@ -48,11 +45,15 @@
 </template>
 
 <script>
+import RoomIdDisplay from "@/components/RoomIdDisplay.vue";
 import { mapActions } from "vuex";
 import router from "@/router";
 
 export default {
   name: "Participant",
+  components: {
+    RoomIdDisplay
+  },
   data() {
     return {
       cardValues: [1, 2, 3, 5, 8, 666, 0],

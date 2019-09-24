@@ -4,10 +4,7 @@
 
     <div>
       <div class="page-panel" style="border-right: 5px solid">
-        <div>
-          Current room id:
-          <p id="roomId-show"></p>
-        </div>
+        <room-id-display></room-id-display>
 
         <div>
           <input
@@ -37,8 +34,13 @@
 </template>
 
 <script>
+import RoomIdDisplay from "@/components/RoomIdDisplay.vue";
+
 export default {
-  name: "Host"
+  name: "Host",
+  components: {
+    RoomIdDisplay
+  }
 };
 </script>
 
