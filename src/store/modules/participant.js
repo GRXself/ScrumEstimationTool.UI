@@ -23,7 +23,9 @@ const actions = {
     const roomId = context.rootState.room.id;
     return ParticipantService.getAll(roomId)
       .then(response => {
-        this.$store.commit("room/SET_ROOM_PARTICIPANTS", response.data);
+        context.commit("room/SET_ROOM_PARTICIPANTS", response.data, {
+          root: true
+        });
       })
       .catch(error => {
         if (error.response.status === 404) {

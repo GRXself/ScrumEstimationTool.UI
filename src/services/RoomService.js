@@ -17,5 +17,8 @@ export default {
   },
   enterRoom(roomId) {
     return apiClient.get("/room/" + roomId);
+  },
+  resetRoom(roomId) {
+    return apiClient.put("/room/" + roomId);
   }
 };

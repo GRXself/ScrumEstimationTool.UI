@@ -14,7 +14,6 @@ export default {
     return apiClient.get("/participant/" + roomId);
   },
   submit(roomId, participant) {
-    console.log(roomId);
     return apiClient.post("/participant/" + roomId, participant);
   }
 };

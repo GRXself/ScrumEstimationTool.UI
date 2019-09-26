@@ -9,15 +9,22 @@
         <div>
           <input
             type="button"
-            onclick="getCurrentEstimationResult()"
+            @click="getAll()"
             value="Show estimations"
           />&nbsp;&nbsp;&nbsp;&nbsp;
-          <input type="button" onclick="reset()" value="Reset" />
+          <input type="button" @click="resetRoom()" value="Reset" />
         </div>
 
         <div>
           Estimation Result:
-          <p id="estimation-result-content">There is the result.</p>
+          <div v-if="!estimations.length">There is the result.</div>
+          <div v-else>
+            <ul>
+              <li v-for="estimation in estimations" :key="estimation">
+                {{ estimation }}
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
 
@@ -35,11 +42,26 @@
 
 <script>
 import RoomIdDisplay from "@/components/RoomIdDisplay.vue";
+import { mapActions } from "vuex";
 
 export default {
   name: "Host",
   components: {
     RoomIdDisplay
+  },
+  methods: {
+    ...mapActions("participant", ["getAll"]),
+    ...mapActions("room", ["resetRoom"])
+  },
+  computed: {
+    estimations() {
+      let participants = this.$store.state.room.participants;
+      let estimations = [];
+      for (const participant of participants) {
+        estimations.push(participant.name + ": " + participant.estimation);
+      }
+      return estimations;
+    }
   }
 };
 </script>

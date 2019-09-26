@@ -5,7 +5,7 @@ const namespaced = true;
 
 const state = {
   id: null,
-  participants: null,
+  participants: [],
   createTime: null,
   lastUseTime: null
 };
@@ -52,6 +52,11 @@ const actions = {
           alert("Room " + state.id + " is NOT exist!");
         }
       });
+  },
+  resetRoom({ commit }) {
+    return RoomService.resetRoom(state.id).then(response => {
+      commit("SET_ROOM", response.data);
+    });
   }
 };
 
